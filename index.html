@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindTrack Wellness</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>MindTrack</h1>
+        <div id="streak-display">🔥 Streak: <span id="streak-count">0</span></div>
+    </header>
+
+    <main>
+        <section id="log-entry">
+            <h2>How are you feeling today?</h2>
+            <form id="mood-form">
+                <div class="mood-options">
+                    <input type="radio" name="mood" value="1" id="mood1"> <label for="mood1">😔</label>
+                    <input type="radio" name="mood" value="2" id="mood2"> <label for="mood2">😐</label>
+                    <input type="radio" name="mood" value="3" id="mood3" checked> <label for="mood3">🙂</label>
+                    <input type="radio" name="mood" value="4" id="mood4"> <label for="mood4">😀</label>
+                    <input type="radio" name="mood" value="5" id="mood5"> <label for="mood5">🤩</label>
+                </div>
+                <textarea id="mood-note" placeholder="What's on your mind? (Optional)"></textarea>
+                <button type="submit">Log Entry</button>
+            </form>
+        </section>
+
+        <section id="visuals">
+            <canvas id="moodChart"></canvas>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
