@@ -3,7 +3,7 @@
 **MindTrack** is a minimalist daily mood journal that lowers the barrier to mental health tracking through a simple 1-5 mood logger and intuitive weekly visualizations.
 
 ## 📖 Project Documentation
-* **[Team Agreement](team-agreement.md))**
+* **[Team Agreement](team-agreement.md)**
 * **[Software Requirements](./requirements.md)**
 * **[Wireframes & Design Specs](./wireframes.md)**
 
