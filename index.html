@@ -7,32 +7,146 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>MindTrack</h1>
-        <div id="streak-display">🔥 Streak: <span id="streak-count">0</span></div>
-    </header>
-
-    <main>
-        <section id="log-entry">
-            <h2>How are you feeling today?</h2>
-            <form id="mood-form">
-                <div class="mood-options">
-                    <input type="radio" name="mood" value="1" id="mood1"> <label for="mood1">😔</label>
-                    <input type="radio" name="mood" value="2" id="mood2"> <label for="mood2">😐</label>
-                    <input type="radio" name="mood" value="3" id="mood3" checked> <label for="mood3">🙂</label>
-                    <input type="radio" name="mood" value="4" id="mood4"> <label for="mood4">😀</label>
-                    <input type="radio" name="mood" value="5" id="mood5"> <label for="mood5">🤩</label>
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="logo-section">
+            <h1>MindTrack</h1>
+            <div class="streak-display">
+                <span class="streak-icon">🔥</span>
+                <div class="streak-text">5-day streak</div>
+            </div>
+        </div>
+        
+        <nav class="nav-menu">
+            <button class="nav-item active" data-view="log-entry-view">
+                <span class="nav-icon">✏️</span>
+                <span class="nav-label">Log Entry</span>
+            </button>
+            <button class="nav-item" data-view="trends-view">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Trends</span>
+            </button>
+            <button class="nav-item" data-view="history-view">
+                <span class="nav-icon">📖</span>
+                <span class="nav-label">History</span>
+            </button>
+        </nav>
+    </aside>
+ 
+    <!-- Main Content Area -->
+    <main id="main-content">
+        <!-- Top Bar -->
+        <header id="top-bar">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search past reflections...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="milestone-tracker">
+                <span class="milestone-label">Milestone Tracker: <strong id="total-logs">0</strong> Total Logs</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
                 </div>
-                <textarea id="mood-note" placeholder="What's on your mind? (Optional)"></textarea>
-                <button type="submit">Log Entry</button>
-            </form>
+            </div>
+            <button id="settings-btn" class="icon-btn" aria-label="Settings">⚙️</button>
+        </header>
+ 
+        <!-- View 1: Log Entry -->
+        <section id="log-entry-view" class="view active">
+            <div class="motivational-quote">
+                <h3>Motivational Quote</h3>
+                <p id="quote-text">"You are capable of amazing things."</p>
+            </div>
+ 
+            <div class="log-entry-form">
+                <h2>How are you feeling?</h2>
+                <form id="mood-form">
+                    <div class="mood-options">
+                        <input type="radio" name="mood" value="😔" id="mood1">
+                        <label for="mood1" class="mood-label">😔</label>
+                        
+                        <input type="radio" name="mood" value="😐" id="mood2">
+                        <label for="mood2" class="mood-label">😐</label>
+                        
+                        <input type="radio" name="mood" value="🙂" id="mood3" checked>
+                        <label for="mood3" class="mood-label">🙂</label>
+                        
+                        <input type="radio" name="mood" value="😀" id="mood4">
+                        <label for="mood4" class="mood-label">😀</label>
+                        
+                        <input type="radio" name="mood" value="🤩" id="mood5">
+                        <label for="mood5" class="mood-label">🤩</label>
+                    </div>
+                    
+                    <textarea id="mood-note" placeholder="What's on your mind?"></textarea>
+                    
+                    <button type="submit" class="primary-btn">Log Entry</button>
+                    
+                    <p class="privacy-note">🔒 Your logs are stored locally and are 100% private</p>
+                </form>
+            </div>
         </section>
-
-        <section id="visuals">
-            <canvas id="moodChart"></canvas>
+ 
+        <!-- View 2: Trends -->
+        <section id="trends-view" class="view">
+            <div class="trends-grid">
+                <div class="trend-card">
+                    <h3>Weekly Avg Mood</h3>
+                    <div class="avg-mood-display">
+                        <span class="big-emoji" id="avg-mood-emoji">🙂</span>
+                    </div>
+                </div>
+                
+                <div class="trend-card wide">
+                    <h3>Mood Distribution</h3>
+                    <canvas id="moodChart"></canvas>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- View 3: History -->
+        <section id="history-view" class="view">
+            <div class="filter-bar">
+                <span class="filter-label">Filter:</span>
+                <select id="filter-mood" class="filter-select">
+                    <option value="all">Filter</option>
+                    <option value="😔">😔 Sad</option>
+                    <option value="😐">😐 Neutral</option>
+                    <option value="🙂">🙂 Good</option>
+                    <option value="😀">😀 Happy</option>
+                    <option value="🤩">🤩 Excited</option>
+                </select>
+                
+                <select id="filter-period" class="filter-select">
+                    <option value="all">All</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="year">This Year</option>
+                </select>
+            </div>
+            
+            <div id="mood-history-list" class="history-grid">
+                <!-- Cards will be generated here -->
+            </div>
         </section>
     </main>
-
+ 
+    <!-- Mobile Bottom Nav -->
+    <nav id="mobile-nav">
+        <button class="mobile-nav-item active" data-view="log-entry-view">
+            <span class="mobile-nav-icon">✏️</span>
+            <span class="mobile-nav-label">Log</span>
+        </button>
+        <button class="mobile-nav-item" data-view="trends-view">
+            <span class="mobile-nav-icon">📊</span>
+            <span class="mobile-nav-label">Trends</span>
+        </button>
+        <button class="mobile-nav-item" data-view="history-view">
+            <span class="mobile-nav-icon">📖</span>
+            <span class="mobile-nav-label">History</span>
+        </button>
+    </nav>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
