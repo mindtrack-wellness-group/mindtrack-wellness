@@ -1,46 +1,33 @@
 # Wireframes & Design Specs: MindTrack Wellness 🌿
 
-This document outlines the visual architecture and responsive user flow for the MindTrack application.
+This document outlines the visual architecture and user flow for the MindTrack application.
 
 ---
 
-### Design Color Palette
+## 🎨 Design System & Color Palette
 * **Primary Background:** #1A1A1A (Deep Charcoal)
 * **Accent Color:** #00FFC8 (Neon Mint) — *Used for high-contrast visibility.*
 * **Text:** #FFFFFF (Pure White)
 
 ---
 
-## 📱 Mobile vs. 🖥️ Desktop Breakpoints
+## 🏗️ Visual Architecture
 
-Below is a side-by-side comparison demonstrating how the MindTrack interface adapts from a stacked, mobile-first layout to an expanded desktop view utilizing additional screen real estate.
+Below are the architectural diagrams for the MindTrack application, showcasing the full design language and responsive layouts.
 
-### 1. The Check-In Interface
-A high-contrast interface designed to reduce cognitive load during logging. It features a simple 5-point emoji mood selector, a text area for daily reflections, and a persistent streak counter to encourage consistent user engagement.
+### 📱 1. Mobile-First Wireframes
+This diagram represents the high-contrast mobile interface.
 
-| 📱 Mobile Layout (`wireframe-MindTrack_Wellness-Mobile.png`) | 🖥️ Desktop Layout (`wireframe-MindTrack_Wellness-Desktop.png`) |
-| :---: | :---: |
-| <img src="./wireframe-MindTrack_Wellness-Mobile.png" width="300" alt="Mobile Check-In Interface"> | <img src="./wireframe-MindTrack_Wellness-Desktop.png" width="600" alt="Desktop Check-In Interface"> |
+**Key Design Concepts:**
+* **Check-In:** A stacked 5-point emoji mood selector, a simplified text area for daily reflections, and a persistent flame icon streak counter to encourage user engagement.
+* **Analytics Dashboard:** A comprehensive, stacked visualization utilizing a Chart.js line graph and a complementary distribution chart to quickly identify emotional patterns at a glance.
+* **Archive:** A chronological list of past entries presented in scrollable cards displaying date, mood icon, and a preview of the notes for easy personal reflection.
 
----
-
-### 2. The Analytics Dashboard
-A comprehensive analytics view utilizing Chart.js. The desktop view expands on the weekly mood trend, integrating a side-by-side visualization of mood distribution to help users identify emotional patterns at a glance.
-
-| 📱 Mobile Layout (`wireframe-MindTrack_Wellness-Mobile.png`) | 🖥️ Desktop Layout (`wireframe-MindTrack_Wellness-Desktop.png`) |
-| :---: | :---: |
-| <img src="./wireframe-MindTrack_Wellness-Mobile.png" width="300" alt="Mobile Analytics Dashboard"> | <img src="./wireframe-MindTrack_Wellness-Desktop.png" width="600" alt="Desktop Analytics Dashboard"> |
+![Mobile Wireframes](./wireframe-MindTrack_Wellness-Mobile.png)
 
 ---
 
-### 3. The Entry Archive
-A chronological archive of past reflections. On mobile, entries are presented as a scrollable list of cards. On desktop, the layout utilizes a multi-column grid or a dedicated master-detail panel for easier review of historical data.
+### 🖥️ 2. Desktop Responsive Transformation
+This diagram demonstrates how the design system adapts from mobile-first to expanded desktop views, utilizing a fixed master-navigation sidebar (160px) and Side-by-Side (Master-Detail) content panels to maximize screen real estate.
 
-| 📱 Mobile Layout (`wireframe-MindTrack_Wellness-Mobile.png`) | 🖥️ Desktop Layout (`wireframe-MindTrack_Wellness-Desktop.png`) |
-| :---: | :---: |
-| <img src="./wireframe-MindTrack_Wellness-Mobile.png" width="300" alt="Mobile Entry Archive"> | <img src="./wireframe-MindTrack_Wellness-Desktop.png" width="600" alt="Desktop Entry Archive"> |
-
-### Design Color Palette
-* **Primary Background:** #1A1A1A (Deep Charcoal)
-* **Accent Color:** #00FFC8 (Neon Mint) — *Used for high-contrast visibility.*
-* **Text:** #FFFFFF (Pure White)
+![Desktop Wireframes](./wireframe-MindTrack_Wellness-Desktop.png)
