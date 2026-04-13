@@ -1,23 +1,85 @@
-// Motivational Quotes
+// Motivational Quotes - Diverse, multicultural, and faith-inspired
 const quotes = [
-    "You are capable of amazing things.",
-    "Every day is a fresh start.",
-    "Your feelings are valid and important.",
-    "Progress, not perfection.",
-    "You are stronger than you think.",
-    "Small steps lead to big changes.",
-    "It's okay to not be okay.",
-    "You deserve peace and happiness.",
-    "One day at a time.",
-    "Your mental health matters."
+    // Christian & Biblical Inspiration
+    { text: "I can do all things through Christ who strengthens me.", author: "Philippians 4:13" },
+    { text: "The Lord is my shepherd; I shall not want.", author: "Psalm 23:1" },
+    { text: "Be still, and know that I am God.", author: "Psalm 46:10" },
+    { text: "Cast all your anxiety on Him because He cares for you.", author: "1 Peter 5:7" },
+    { text: "For I know the plans I have for you, plans to prosper you and not to harm you.", author: "Jeremiah 29:11" },
+    { text: "Come to me, all you who are weary and burdened, and I will give you rest.", author: "Matthew 11:28" },
+    { text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.", author: "Psalm 34:18" },
+    { text: "Do not be anxious about anything, but in everything by prayer present your requests to God.", author: "Philippians 4:6" },
+    { text: "Love your neighbor as yourself.", author: "Mark 12:31" },
+    { text: "Let your light shine before others.", author: "Matthew 5:16" },
+    { text: "Faith is the substance of things hoped for, the evidence of things not seen.", author: "Hebrews 11:1" },
+    { text: "God is our refuge and strength, an ever-present help in trouble.", author: "Psalm 46:1" },
+    
+    // General Inspirational
+    { text: "You are capable of amazing things.", author: "Unknown" },
+    { text: "Every day is a fresh start.", author: "Unknown" },
+    { text: "Your feelings are valid and important.", author: "Unknown" },
+    { text: "Progress, not perfection.", author: "Unknown" },
+    { text: "You are stronger than you think.", author: "Unknown" },
+    { text: "Small steps lead to big changes.", author: "Unknown" },
+    { text: "It's okay to not be okay.", author: "Unknown" },
+    { text: "You deserve peace and happiness.", author: "Unknown" },
+    { text: "One day at a time.", author: "Unknown" },
+    { text: "Your mental health matters.", author: "Unknown" },
+    
+    // Buddhist Wisdom
+    { text: "Peace comes from within. Do not seek it without.", author: "Buddha" },
+    { text: "The mind is everything. What you think you become.", author: "Buddha" },
+    { text: "In the end, only three things matter: how much you loved, how gently you lived, and how gracefully you let go.", author: "Buddha" },
+    { text: "Every morning we are born again. What we do today matters most.", author: "Buddha" },
+    
+    // African Proverbs
+    { text: "If you want to go fast, go alone. If you want to go far, go together.", author: "African Proverb" },
+    { text: "Smooth seas do not make skillful sailors.", author: "African Proverb" },
+    { text: "However long the night, the dawn will break.", author: "African Proverb" },
+    
+    // Asian Wisdom
+    { text: "Fall seven times, stand up eight.", author: "Japanese Proverb" },
+    { text: "A journey of a thousand miles begins with a single step.", author: "Lao Tzu" },
+    { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+    { text: "When the winds of change blow, some build walls, others build windmills.", author: "Chinese Proverb" },
+    
+    // Indigenous Wisdom
+    { text: "We do not inherit the earth from our ancestors; we borrow it from our children.", author: "Native American Proverb" },
+    { text: "Listen to the wind, it talks. Listen to the silence, it speaks.", author: "Native American Proverb" },
+    
+    // Middle Eastern Wisdom
+    { text: "The wound is the place where the Light enters you.", author: "Rumi" },
+    { text: "Let yourself be silently drawn by the strange pull of what you really love.", author: "Rumi" },
+    { text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", author: "Rumi" },
+    
+    // Latin American Wisdom
+    { text: "They tried to bury us. They didn't know we were seeds.", author: "Mexican Proverb" },
+    
+    // Modern Wisdom
+    { text: "In a gentle way, you can shake the world.", author: "Mahatma Gandhi" },
+    { text: "Be the change you wish to see in the world.", author: "Mahatma Gandhi" },
+    { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
+    { text: "The only way out is through.", author: "Robert Frost" },
 ];
+
+// App Settings
+let currentQuoteIndex = 0;
+let quoteRotationInterval = null;
+let settings = {
+    theme: 'dark',
+    soundEnabled: true,
+    autoQuoteRotation: true
+};
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
+    loadSettings();
     initializeApp();
     renderHistory();
     updateStats();
     setRandomQuote();
+    initQuoteRotation();
+    initSettings();
 });
 
 function initializeApp() {
@@ -77,8 +139,50 @@ function switchView(viewId) {
 
 function setRandomQuote() {
     const quoteText = document.getElementById('quote-text');
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    quoteText.textContent = `"${randomQuote}"`;
+    const quoteAuthor = document.getElementById('quote-author');
+    const quote = quotes[currentQuoteIndex];
+    quoteText.textContent = `"${quote.text}"`;
+    quoteAuthor.textContent = `— ${quote.author}`;
+}
+
+function nextQuote() {
+    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+    setRandomQuote();
+}
+
+function prevQuote() {
+    currentQuoteIndex = (currentQuoteIndex - 1 + quotes.length) % quotes.length;
+    setRandomQuote();
+}
+
+function initQuoteRotation() {
+    // Quote navigation buttons
+    const prevBtn = document.getElementById('prev-quote');
+    const nextBtn = document.getElementById('next-quote');
+    
+    if (prevBtn) prevBtn.addEventListener('click', prevQuote);
+    if (nextBtn) nextBtn.addEventListener('click', nextQuote);
+    
+    // Auto-rotation
+    if (settings.autoQuoteRotation) {
+        startQuoteRotation();
+    }
+}
+
+function startQuoteRotation() {
+    if (quoteRotationInterval) {
+        clearInterval(quoteRotationInterval);
+    }
+    quoteRotationInterval = setInterval(() => {
+        nextQuote();
+    }, 15000); // Every 15 seconds
+}
+
+function stopQuoteRotation() {
+    if (quoteRotationInterval) {
+        clearInterval(quoteRotationInterval);
+        quoteRotationInterval = null;
+    }
 }
 
 // Mood Form Submission
@@ -98,6 +202,11 @@ moodForm.addEventListener('submit', function(event) {
     };
 
     saveEntry(entry);
+    
+    // Play sound effect if enabled
+    if (settings.soundEnabled) {
+        playSuccessSound();
+    }
     
     // UI Updates
     renderHistory();
@@ -125,6 +234,25 @@ moodForm.addEventListener('submit', function(event) {
         document.querySelector('.nav-item[data-view="history-view"]').classList.add('active');
     }, 2500);
 });
+
+function playSuccessSound() {
+    // Create a simple success sound using Web Audio API
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 600;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+}
 
 function saveEntry(newEntry) {
     let history = JSON.parse(localStorage.getItem('moodHistory')) || [];
@@ -403,4 +531,108 @@ function updateChart() {
             }
         }
     });
+}
+
+// Settings Functions
+function loadSettings() {
+    const savedSettings = localStorage.getItem('appSettings');
+    if (savedSettings) {
+        settings = JSON.parse(savedSettings);
+    }
+    
+    // Apply theme
+    if (settings.theme === 'light') {
+        document.body.classList.add('light-mode');
+    }
+}
+
+function saveSettings() {
+    localStorage.setItem('appSettings', JSON.stringify(settings));
+}
+
+function initSettings() {
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsModal = document.getElementById('settings-modal');
+    const closeSettings = document.getElementById('close-settings');
+    
+    // Open settings
+    settingsBtn.addEventListener('click', () => {
+        settingsModal.classList.add('active');
+        syncSettingsUI();
+    });
+    
+    // Close settings
+    closeSettings.addEventListener('click', () => {
+        settingsModal.classList.remove('active');
+    });
+    
+    // Close on outside click
+    settingsModal.addEventListener('click', (e) => {
+        if (e.target === settingsModal) {
+            settingsModal.classList.remove('active');
+        }
+    });
+    
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('change', () => {
+        settings.theme = themeToggle.checked ? 'light' : 'dark';
+        document.body.classList.toggle('light-mode', themeToggle.checked);
+        saveSettings();
+    });
+    
+    // Sound toggle
+    const soundToggle = document.getElementById('sound-toggle');
+    soundToggle.addEventListener('change', () => {
+        settings.soundEnabled = soundToggle.checked;
+        saveSettings();
+    });
+    
+    // Auto-quote rotation toggle
+    const autoQuoteToggle = document.getElementById('auto-quote-toggle');
+    autoQuoteToggle.addEventListener('change', () => {
+        settings.autoQuoteRotation = autoQuoteToggle.checked;
+        saveSettings();
+        
+        if (settings.autoQuoteRotation) {
+            startQuoteRotation();
+        } else {
+            stopQuoteRotation();
+        }
+    });
+    
+    // Reset data
+    const resetBtn = document.getElementById('reset-data-btn');
+    resetBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete all your mood entries? This cannot be undone.')) {
+            if (confirm('This will permanently delete all your data. Are you absolutely sure?')) {
+                localStorage.removeItem('moodHistory');
+                renderHistory();
+                updateStats();
+                updateChart();
+                settingsModal.classList.remove('active');
+                alert('All data has been reset.');
+            }
+        }
+    });
+    
+    // Export data
+    const exportBtn = document.getElementById('export-data-btn');
+    exportBtn.addEventListener('click', () => {
+        const history = localStorage.getItem('moodHistory') || '[]';
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(history);
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "mindtrack-data.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    });
+}
+
+function syncSettingsUI() {
+    // Sync toggles with current settings
+    document.getElementById('theme-toggle').checked = settings.theme === 'light';
+    document.getElementById('sound-toggle').checked = settings.soundEnabled;
+    document.getElementById('auto-quote-toggle').checked = settings.autoQuoteRotation;
 }

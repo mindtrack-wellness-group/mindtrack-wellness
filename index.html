@@ -32,15 +32,11 @@
             </button>
         </nav>
     </aside>
- 
+
     <!-- Main Content Area -->
     <main id="main-content">
         <!-- Top Bar -->
         <header id="top-bar">
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Search past reflections...">
-                <span class="search-icon">🔍</span>
-            </div>
             <div class="milestone-tracker">
                 <span class="milestone-label">Milestone Tracker: <strong id="total-logs">0</strong> Total Logs</span>
                 <div class="progress-bar">
@@ -49,14 +45,21 @@
             </div>
             <button id="settings-btn" class="icon-btn" aria-label="Settings">⚙️</button>
         </header>
- 
+
         <!-- View 1: Log Entry -->
         <section id="log-entry-view" class="view active">
             <div class="motivational-quote">
-                <h3>Motivational Quote</h3>
-                <p id="quote-text">"You are capable of amazing things."</p>
+                <h3>Daily Inspiration</h3>
+                <div class="quote-navigation">
+                    <button class="quote-nav-btn" id="prev-quote" aria-label="Previous quote">←</button>
+                    <div class="quote-content">
+                        <p id="quote-text">"You are capable of amazing things."</p>
+                        <p class="quote-author" id="quote-author">— Unknown</p>
+                    </div>
+                    <button class="quote-nav-btn" id="next-quote" aria-label="Next quote">→</button>
+                </div>
             </div>
- 
+
             <div class="log-entry-form">
                 <h2>How are you feeling?</h2>
                 <form id="mood-form">
@@ -85,7 +88,7 @@
                 </form>
             </div>
         </section>
- 
+
         <!-- View 2: Trends -->
         <section id="trends-view" class="view">
             <div class="trends-grid">
@@ -102,9 +105,14 @@
                 </div>
             </div>
         </section>
- 
+
         <!-- View 3: History -->
         <section id="history-view" class="view">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search past reflections...">
+                <span class="search-icon">🔍</span>
+            </div>
+            
             <div class="filter-bar">
                 <span class="filter-label">Filter:</span>
                 <select id="filter-mood" class="filter-select">
@@ -129,7 +137,7 @@
             </div>
         </section>
     </main>
- 
+
     <!-- Mobile Bottom Nav -->
     <nav id="mobile-nav">
         <button class="mobile-nav-item active" data-view="log-entry-view">
@@ -145,7 +153,79 @@
             <span class="mobile-nav-label">History</span>
         </button>
     </nav>
- 
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-modal" id="close-settings">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label for="theme-toggle">
+                        <span class="setting-label">🌓 Theme</span>
+                        <span class="setting-description">Switch between light and dark mode</span>
+                    </label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="theme-toggle" class="toggle-input">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-labels">
+                            <span class="label-light">Light</span>
+                            <span class="label-dark">Dark</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <label for="sound-toggle">
+                        <span class="setting-label">🔊 Sound Effects</span>
+                        <span class="setting-description">Play sounds when logging entries</span>
+                    </label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="sound-toggle" class="toggle-input" checked>
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-labels">
+                            <span class="label-off">Off</span>
+                            <span class="label-on">On</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <label for="auto-quote-toggle">
+                        <span class="setting-label">✨ Auto-rotate Quotes</span>
+                        <span class="setting-description">Change daily inspiration every 15 seconds</span>
+                    </label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="auto-quote-toggle" class="toggle-input" checked>
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-labels">
+                            <span class="label-off">Off</span>
+                            <span class="label-on">On</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <label>
+                        <span class="setting-label">🗑️ Reset All Data</span>
+                        <span class="setting-description">Permanently delete all mood entries</span>
+                    </label>
+                    <button id="reset-data-btn" class="danger-btn">Reset Data</button>
+                </div>
+
+                <div class="setting-item">
+                    <label>
+                        <span class="setting-label">📥 Export Data</span>
+                        <span class="setting-description">Download your entries as JSON</span>
+                    </label>
+                    <button id="export-data-btn" class="secondary-btn">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>
 </body>
