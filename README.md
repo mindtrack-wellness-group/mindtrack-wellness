@@ -18,4 +18,4 @@ The diagram below represents the Logic Flow and Data Structure for MindTrack.
 ![MindTrack Architecture](./Consolidated_Diagram-Domain_Model-Database_Schema.png)
 
 ## 📋 Project Management
-* **[GitHub Project Board/Issues](https://github.com/mindtrack-wellness-group/mindtrack-wellness/issues)**
+* **[GitHub Project Board/Issues](https://github.com/orgs/mindtrack-wellness-group/projects/2/views/1)**
