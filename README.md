@@ -23,11 +23,14 @@ The diagram below represents the Logic Flow and Data Structure for MindTrack.
 ## 📋 Project Management
 * **[GitHub Project Board](https://mindtrack-wellness-group.github.io/mindtrack-wellness/)**
 
+## 🛡️ Lighthouse Scores
+* **[Desktop Version](./MindTrack_Wellness_Lighthouse_Scores_Desktop.png)**
+* **[Mobile Version](./MindTrack_Wellness_Lighthouse_Scores_Mobile.png)**
 
 ## 📋 Tech Stack
 * **Frontend:** HTML5, CSS3 (Custom Variables & Media Queries)
 * **Logic:** Vanilla JavaScript (ES6+)
-* **Audio:** Web Audio API (BiquadFilter & Gain Synthesis)
+* **Audio:** Web Audio API 
 * **Visuals:** Chart.js
 * **Storage:** LocalStorage API
 
@@ -37,4 +40,6 @@ The diagram below represents the Logic Flow and Data Structure for MindTrack.
 ## 🔗 Links
 * **[Deployed Site] https://mindtrack-wellness-group.github.io/mindtrack-wellness/**
 * **[GitHub Project Board](https://github.com/orgs/mindtrack-wellness-group/projects/2/views/1)**
+
+
 
