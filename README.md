@@ -1,21 +1,40 @@
-# MindTrack Wellness Journal
+# MindTrack Wellness 🌿
 
-## Description
-MindTrack is a minimalist daily wellness journal designed to lower the barrier to mental health tracking. It allows users to log their daily mood and notes, providing visual trend data to help identify emotional patterns through data-driven self-reflection.
+MindTrack is a minimalist daily wellness journal and mood tracker designed to lower the barrier to mental health awareness. By combining simple 1-5 mood logging with intuitive visualizations, MindTrack allows users to identify emotional patterns through data-driven self-reflection—all while keeping data private on the user's local device.
 
-## Authors
-* [Your Name]
+## 📖 Project Documentation
+* **[Team Agreement](team-agreement.md)**
+* **[Software Requirements](./requirements.md)**
+* **[Wireframes & Design Specs](./wireframes.md)**
+* **[Presentation Slides](https://docs.google.com/presentation/d/165UGLGMK0UCZ6QIzSpoOTPg1BOxI6G7n3yMhwaDeGJM/edit?usp=sharing)**
 
-## Links
-* [Link to your Google Doc (Agreement & Requirements)]
-* [Link to your Presentation Slides]
+## 🚀 Key Features (MVP)
+* **Daily Mood Logger:** Pulse-animated interactive emojis for a 1-5 scale with optional journaling notes.
+* **Ambient Sound Engine:** Integrated lofi soundscapes (Ocean, Forest, Singing Bowls) with a custom noise generator to aid focus and relaxation.
+* **Mood Trends:** Dynamic data visualization of emotional fluctuations using Chart.js.
+* **Persistence:** Secure, local-first data management using the LocalStorage API.
+* **Responsive Design:** Mobile-first architecture featuring a "Cool Mist" Light Mode and high-contrast Dark Mode.
 
-## Wireframes
-![MindTrack Wireframes](./img/wireframes.png) 
-*(Note: You will replace this with your actual image file path later)*
+## 📊 Domain Model & 🗄️ Database Schema
+The diagram below represents the Logic Flow and Data Structure for MindTrack.
 
-## Tech Stack
-* HTML5 / CSS3
-* JavaScript (ES6)
-* Chart.js
-* LocalStorage API
+![MindTrack Architecture](./Consolidated_Diagram-Domain_Model-Database_Schema.png)
+
+## 📋 Project Management
+* **[GitHub Project Board](https://mindtrack-wellness-group.github.io/mindtrack-wellness/)**
+
+
+## 📋 Tech Stack
+* **Frontend:** HTML5, CSS3 (Custom Variables & Media Queries)
+* **Logic:** Vanilla JavaScript (ES6+)
+* **Audio:** Web Audio API (BiquadFilter & Gain Synthesis)
+* **Visuals:** Chart.js
+* **Storage:** LocalStorage API
+
+## 👥 Authors
+* **Raymond Alvarez** – Lead Developer & Technical Professional
+
+## 🔗 Links
+* **[Deployed Site] https://mindtrack-wellness-group.github.io/mindtrack-wellness/**
+* **[GitHub Project Board](https://github.com/orgs/mindtrack-wellness-group/projects/2/views/1)**
+
