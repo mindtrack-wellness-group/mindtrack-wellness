@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindTrack Wellness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -49,14 +52,18 @@
         <!-- View 1: Log Entry -->
         <section id="log-entry-view" class="view active">
             <div class="motivational-quote">
-                <h3>Daily Inspiration</h3>
+                <h3 class="daily-inspiration-label">✨ Daily Inspiration</h3>
                 <div class="quote-navigation">
-                    <button class="quote-nav-btn" id="prev-quote" aria-label="Previous quote">←</button>
+                    <button class="quote-nav-btn" id="prev-quote" aria-label="Previous quote">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
                     <div class="quote-content">
                         <p id="quote-text">"You are capable of amazing things."</p>
-                        <p class="quote-author" id="quote-author">— Unknown</p>
+                        <p class="quote-author" id="quote-author">— A Wise Friend You Haven't Met Yet</p>
                     </div>
-                    <button class="quote-nav-btn" id="next-quote" aria-label="Next quote">→</button>
+                    <button class="quote-nav-btn" id="next-quote" aria-label="Next quote">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
                 </div>
             </div>
 
@@ -64,20 +71,32 @@
                 <h2>How are you feeling?</h2>
                 <form id="mood-form">
                     <div class="mood-options">
-                        <input type="radio" name="mood" value="😔" id="mood1">
-                        <label for="mood1" class="mood-label">😔</label>
-                        
-                        <input type="radio" name="mood" value="😐" id="mood2">
-                        <label for="mood2" class="mood-label">😐</label>
-                        
-                        <input type="radio" name="mood" value="🙂" id="mood3" checked>
-                        <label for="mood3" class="mood-label">🙂</label>
-                        
-                        <input type="radio" name="mood" value="😀" id="mood4">
-                        <label for="mood4" class="mood-label">😀</label>
-                        
-                        <input type="radio" name="mood" value="🤩" id="mood5">
-                        <label for="mood5" class="mood-label">🤩</label>
+                        <!-- Each mood wrapped in .mood-option for emoji + label -->
+                        <div class="mood-option">
+                            <input type="radio" name="mood" value="😔" id="mood1">
+                            <label for="mood1" class="mood-label">😔</label>
+                            <span class="mood-description">Sad</span>
+                        </div>
+                        <div class="mood-option">
+                            <input type="radio" name="mood" value="😐" id="mood2">
+                            <label for="mood2" class="mood-label">😐</label>
+                            <span class="mood-description">Neutral</span>
+                        </div>
+                        <div class="mood-option">
+                            <input type="radio" name="mood" value="🙂" id="mood3" checked>
+                            <label for="mood3" class="mood-label">🙂</label>
+                            <span class="mood-description">Good</span>
+                        </div>
+                        <div class="mood-option">
+                            <input type="radio" name="mood" value="😀" id="mood4">
+                            <label for="mood4" class="mood-label">😀</label>
+                            <span class="mood-description">Happy</span>
+                        </div>
+                        <div class="mood-option">
+                            <input type="radio" name="mood" value="🤩" id="mood5">
+                            <label for="mood5" class="mood-label">🤩</label>
+                            <span class="mood-description">Excited</span>
+                        </div>
                     </div>
                     
                     <textarea id="mood-note" placeholder="What's on your mind?"></textarea>
@@ -91,18 +110,80 @@
 
         <!-- View 2: Trends -->
         <section id="trends-view" class="view">
-            <div class="trends-grid">
-                <div class="trend-card">
-                    <h3>Weekly Avg Mood</h3>
-                    <div class="avg-mood-display">
-                        <span class="big-emoji" id="avg-mood-emoji">🙂</span>
+            <div class="trends-grid" id="trends-grid">
+
+                <!-- Card 1: Weekly Avg Mood -->
+                <div class="trend-card draggable" draggable="true" id="card-avg">
+                    <div class="card-header-controls">
+                        <h3>Weekly Avg Mood</h3>
+                        <button class="minimize-btn" title="Minimize">−</button>
+                    </div>
+                    <div class="card-content">
+                        <div class="avg-mood-display">
+                            <span class="big-emoji" id="avg-mood-emoji">🙂</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="trend-card wide">
-                    <h3>Mood Distribution</h3>
-                    <canvas id="moodChart"></canvas>
+
+                <!-- Card 2: Mood Distribution -->
+                <div class="trend-card wide draggable" draggable="true" id="card-dist">
+                    <div class="card-header-controls">
+                        <h3>Mood Distribution</h3>
+                        <div style="display:flex;align-items:center;gap:0.75rem;">
+                            <select id="dist-mode" class="timeline-select" title="Chart period">
+                                <option value="hourly">Hourly (last 24h)</option>
+                                <option value="all">All Time</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="year">This Year</option>
+                                <option value="specific-day">Specific Day…</option>
+                                <option value="specific-week">Specific Week…</option>
+                                <option value="specific-month">Specific Month…</option>
+                                <option value="specific-year">Specific Year…</option>
+                            </select>
+                            <!-- Date picker inputs for bar graph (shown conditionally) -->
+                            <input type="date" id="dist-specific-day" class="timeline-select" style="display:none;" title="Pick a day">
+                            <input type="week" id="dist-specific-week" class="timeline-select" style="display:none;" title="Pick a week">
+                            <input type="month" id="dist-specific-month" class="timeline-select" style="display:none;" title="Pick a month">
+                            <input type="number" id="dist-specific-year" class="timeline-select" style="display:none;width:90px;" placeholder="Year" min="2020" max="2099" title="Enter a year">
+                            <button class="minimize-btn" title="Minimize">−</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <canvas id="moodChart"></canvas>
+                    </div>
                 </div>
+
+                <!-- Card 3: Mood Timeline (full width) -->
+                <div class="trend-card full-width draggable" draggable="true" id="card-timeline">
+                    <div class="card-header-controls">
+                        <h3>Mood Timeline</h3>
+                        <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                            <div class="timeline-controls">
+                                <select id="timeline-mode" class="timeline-select">
+                                    <option value="hourly">Hourly / last 24 hours</option>
+                                    <option value="daily" selected>Daily Avg (this week)</option>
+                                    <option value="weekly">Weekly Avg (this month)</option>
+                                    <option value="monthly">Monthly Avg (this year)</option>
+                                    <option value="yearly">Yearly Avg</option>
+                                    <option value="specific-day">Specific Day…</option>
+                                    <option value="specific-week">Specific Week…</option>
+                                    <option value="specific-month">Specific Month…</option>
+                                    <option value="specific-year">Specific Year…</option>
+                                </select>
+                                <input type="date" id="timeline-specific-day" class="timeline-select" style="display:none;" title="Pick a day">
+                                <input type="week" id="timeline-specific-week" class="timeline-select" style="display:none;" title="Pick a week">
+                                <input type="month" id="timeline-specific-month" class="timeline-select" style="display:none;" title="Pick a month">
+                                <input type="number" id="timeline-specific-year" class="timeline-select" style="display:none;width:90px;" placeholder="Year" min="2020" max="2099" title="Enter a year">
+                            </div>
+                            <button class="minimize-btn" title="Minimize">−</button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <canvas id="timelineChart"></canvas>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -116,7 +197,7 @@
             <div class="filter-bar">
                 <span class="filter-label">Filter:</span>
                 <select id="filter-mood" class="filter-select">
-                    <option value="all">Filter</option>
+                    <option value="all">All Moods</option>
                     <option value="😔">😔 Sad</option>
                     <option value="😐">😐 Neutral</option>
                     <option value="🙂">🙂 Good</option>
@@ -125,15 +206,34 @@
                 </select>
                 
                 <select id="filter-period" class="filter-select">
-                    <option value="all">All</option>
+                    <option value="all">All Time</option>
+                    <option value="hour">Last Hour</option>
                     <option value="week">This Week</option>
                     <option value="month">This Month</option>
                     <option value="year">This Year</option>
+                    <option value="specific-day">Specific Day…</option>
+                    <option value="specific-week">Specific Week…</option>
+                    <option value="specific-month">Specific Month…</option>
+                    <option value="specific-year">Specific Year…</option>
                 </select>
+                <!-- Date pickers shown conditionally -->
+                <input type="date" id="history-specific-day" class="filter-select" style="display:none;" title="Pick a day">
+                <input type="week" id="history-specific-week" class="filter-select" style="display:none;" title="Pick a week">
+                <input type="month" id="history-specific-month" class="filter-select" style="display:none;" title="Pick a month">
+                <input type="number" id="history-specific-year" class="filter-select" style="display:none;width:100px;" placeholder="Year" min="2020" max="2099" title="Enter a year">
             </div>
             
             <div id="mood-history-list" class="history-grid">
-                <!-- Cards will be generated here -->
+                <!-- Cards generated by JS -->
+            </div>
+
+            <!-- Wellness Tips Section -->
+            <div class="wellness-tips-section" id="wellness-tips-section">
+                <h3>🌱 Personalized Wellness Tips</h3>
+                <p class="tips-subtitle">Based on your mood patterns, here are some suggestions for you:</p>
+                <div id="wellness-tips-container">
+                    <!-- Tips generated by JS -->
+                </div>
             </div>
         </section>
     </main>
@@ -159,74 +259,121 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Settings</h2>
-                <button class="close-modal" id="close-settings">×</button>
+                <button class="close-modal" id="close-settings" aria-label="Close settings">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
             </div>
             <div class="modal-body">
-                <div class="setting-item">
-                    <label for="theme-toggle">
-                        <span class="setting-label">🌓 Theme</span>
-                        <span class="setting-description">Switch between light and dark mode</span>
-                    </label>
-                    <div class="toggle-switch">
+
+                <!-- Theme -->
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-icon">🌓</span>
+                        <div>
+                            <span class="setting-label">Theme</span>
+                            <span class="setting-description">Light or dark mode</span>
+                        </div>
+                    </div>
+                    <label class="toggle-wrap" for="theme-toggle" aria-label="Toggle theme">
                         <input type="checkbox" id="theme-toggle" class="toggle-input">
-                        <span class="toggle-slider"></span>
-                        <span class="toggle-labels">
-                            <span class="label-light">Light</span>
-                            <span class="label-dark">Dark</span>
+                        <span class="toggle-track">
+                            <span class="toggle-thumb"></span>
                         </span>
+                        <span class="toggle-state-label" id="theme-state">Dark</span>
+                    </label>
+                </div>
+
+                <!-- Ambient Sound -->
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-icon">🎵</span>
+                        <div>
+                            <span class="setting-label">Ambient Sound</span>
+                            <span class="setting-description">Calming background audio</span>
+                        </div>
+                    </div>
+                    <label class="toggle-wrap" for="sound-toggle" aria-label="Toggle ambient sound">
+                        <input type="checkbox" id="sound-toggle" class="toggle-input">
+                        <span class="toggle-track">
+                            <span class="toggle-thumb"></span>
+                        </span>
+                        <span class="toggle-state-label" id="sound-state">Off</span>
+                    </label>
+                </div>
+
+                <!-- Sound selector -->
+                <div class="setting-row sub-setting" id="sound-picker-row">
+                    <div class="setting-info">
+                        <span class="setting-icon">🎧</span>
+                        <div>
+                            <span class="setting-label">Sound Scene</span>
+                            <span class="setting-description">Choose your ambience</span>
+                        </div>
+                    </div>
+                    <select id="sound-picker" class="filter-select sound-select">
+                        <option value="rain">🌧 Gentle Rain</option>
+                        <option value="forest">🌲 Forest</option>
+                        <option value="ocean">🌊 Ocean Waves</option>
+                        <option value="cafe">☕ Café Murmur</option>
+                        <option value="fire">🔥 Crackling Fire</option>
+                        <option value="tibetan">🎶 Tibetan Bowl</option>
+                    </select>
+                </div>
+
+                <!-- Volume Slider -->
+                <div class="setting-row sub-setting" id="volume-row">
+                    <div class="setting-info">
+                        <span class="setting-icon">🔊</span>
+                        <div>
+                            <span class="setting-label">Volume</span>
+                            <span class="setting-description">Adjust ambient volume</span>
+                        </div>
+                    </div>
+                    <div class="volume-control">
+                        <span class="volume-icon">🔈</span>
+                        <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.05" value="0.4">
+                        <span class="volume-icon">🔊</span>
                     </div>
                 </div>
 
-                <div class="setting-item">
-                    <label for="sound-toggle">
-                        <span class="setting-label">🔊 Sound Effects</span>
-                        <span class="setting-description">Play sounds when logging entries</span>
-                    </label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="sound-toggle" class="toggle-input" checked>
-                        <span class="toggle-slider"></span>
-                        <span class="toggle-labels">
-                            <span class="label-off">Off</span>
-                            <span class="label-on">On</span>
-                        </span>
+                <div class="settings-divider"></div>
+
+                <!-- Reset Data -->
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="setting-icon">🗑️</span>
+                        <div>
+                            <span class="setting-label">Reset All Data</span>
+                            <span class="setting-description">Permanently delete all mood entries</span>
+                        </div>
                     </div>
+                    <button id="reset-data-btn" class="reset-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+                        Reset Data
+                    </button>
                 </div>
 
-                <div class="setting-item">
-                    <label for="auto-quote-toggle">
-                        <span class="setting-label">✨ Auto-rotate Quotes</span>
-                        <span class="setting-description">Change daily inspiration every 15 seconds</span>
-                    </label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="auto-quote-toggle" class="toggle-input" checked>
-                        <span class="toggle-slider"></span>
-                        <span class="toggle-labels">
-                            <span class="label-off">Off</span>
-                            <span class="label-on">On</span>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="setting-item">
-                    <label>
-                        <span class="setting-label">🗑️ Reset All Data</span>
-                        <span class="setting-description">Permanently delete all mood entries</span>
-                    </label>
-                    <button id="reset-data-btn" class="danger-btn">Reset Data</button>
-                </div>
-
-                <div class="setting-item">
-                    <label>
-                        <span class="setting-label">📥 Export Data</span>
-                        <span class="setting-description">Download your entries as JSON</span>
-                    </label>
-                    <button id="export-data-btn" class="secondary-btn">Export</button>
-                </div>
             </div>
         </div>
     </div>
 
+    <!-- Confirm Reset Dialog -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content confirm-content">
+            <div class="confirm-icon">⚠️</div>
+            <h3>Delete all entries?</h3>
+            <p>This action cannot be undone. All your mood logs will be permanently removed.</p>
+            <div class="confirm-actions">
+                <button id="confirm-cancel" class="secondary-btn">Cancel</button>
+                <button id="confirm-reset" class="danger-btn">Yes, delete everything</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- SortableJS for drag-and-drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
